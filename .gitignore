@@ -1,0 +1,4 @@
+# Project exclude paths
+/.gradle/
+/arithlang/build/
+/arithlang/build/classes/java/main/
