@@ -81,50 +81,39 @@ public class Evaluator implements Visitor<Value> {
     public Value visit(LeastExp e) {
         List<Exp> operands = e.all();
         NumVal lVal = (NumVal) operands.get(0).accept(this);
+
+        /**
+         * If only number was inputted
+         */
         if (operands.size() == 1) {
+            // Negative check
             if (String.valueOf(lVal).contains("-")){
                 return new DynamicError("Error: Contains Negative Number");
             }
             return lVal;
         }
-        //int lValParts = Integer.parseInt(String.valueOf(lVal));
-
+       // Initialize Array
         ArrayList<Integer> intConversion = new ArrayList<Integer>();
         for (int i = 0; i < operands.size(); i++) {
-            NumVal rVal = (NumVal) operands.get(i).accept(this);
-            int lValPart = Integer.parseInt(String.valueOf(rVal));
-            //System.out.println(lValPart); //show values inputted
-            intConversion.add(lValPart);
+            NumVal rVal = (NumVal) operands.get(i).accept(this); //Take each number inputted in list
+            int lValPart = Integer.parseInt(String.valueOf(rVal)); // Convert list type to integer
+            intConversion.add(lValPart); // Populate Array with integer
 
-            //System.out.println(String.valueOf(rVal));
+            // Negative check
             if (String.valueOf(rVal).contains("-")) {
-                //System.out.println("error: contains negative number");
                 return new DynamicError("Error: Contains Negative Number");
             }
-//            if(intConversion.get(i)<0){
-//                return new DynamicError(ts.visit(e));
-//            }
-
-
         }
-        //Arrays.sort(intConversion);
-        Collections.sort(intConversion);
-//        for (int y = 0; y < intConversion.size(); y++) {
-//            System.out.println(intConversion.get(y)); //shows values sorted
-//        }
-
-
+        Collections.sort(intConversion); // Sort new array
         return new NumVal(intConversion.get(0));
     }
 
+    /**
+     * For dealing with > case
+     */
     @Override
     public Value visit(MostExp e) {
-        List<Exp> operands = e.all();
-        NumVal lVal = (NumVal) operands.get(0).accept(this);
-        String error = "Error";
-//        if(operands.size()!=0){
-//            return new DynamicError("Error");
-//        }
+
         return new DynamicError("Error");
     }
 
