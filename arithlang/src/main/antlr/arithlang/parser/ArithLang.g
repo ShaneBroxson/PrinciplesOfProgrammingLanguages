@@ -14,6 +14,8 @@ grammar ArithLang;
         | d=divexp { $ast = $d.ast; }
         | l=leastexp { $ast = $l.ast; } //New expression for homework solution
         | g=mostexp { $ast = $g.ast; }
+        | ln=len {$ast = $ln.ast; }
+        | u=unique {$ast = $u.ast; }
         ;
   
  numexp returns [NumExp ast]:
@@ -77,6 +79,24 @@ mostexp returns [MostExp ast]
    		  ( e=exp { $list.add($e.ast); } ) +
    	')' { $ast = new MostExp($list); }
    	;
+
+len returns [Len ast]
+        locals [ArrayList<Exp> list]
+     @init { $list = new ArrayList<Exp>(); } :
+        	'(len (list'
+        		   //e=exp { $list.add($e.ast); }
+        		  ( e=exp { $list.add($e.ast); } ) *
+        	 '))' { $ast = new Len($list); }
+        	;
+
+unique returns [Unique ast]
+        locals [ArrayList<Exp> list]
+     @init { $list = new ArrayList<Exp>(); } :
+        	'(unique (list'
+        		   //e=exp { $list.add($e.ast); }
+        		  ( e=exp { $list.add($e.ast); } ) *
+        	 '))' { $ast = new Unique($list); }
+        	;
 
  // Lexical Specification of this Programming Language
  //  - lexical specification rules start with uppercase

@@ -115,6 +115,24 @@ public interface AST {
             return visitor.visit(this);
         }
     }
+
+    public static class Len extends CompoundArithExp {
+        public Len(List<Exp> args) {
+            super(args);
+        }
+        public Object accept(Visitor visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public static class Unique extends CompoundArithExp {
+        public Unique(List<Exp> args) {
+            super(args);
+        }
+        public Object accept(Visitor visitor) {
+            return visitor.visit(this);
+        }
+    }
 		
     public interface Visitor <T> {
         // This interface should contain a signature for each concrete AST node.
@@ -126,5 +144,7 @@ public interface AST {
         public T visit(AST.LeastExp e); //Homework assignment code.
         public T visit(AST.MostExp e);
         public T visit(AST.Program p);
+        public T visit(AST.Len e);
+        public T visit(AST.Unique e);
     }	
 }

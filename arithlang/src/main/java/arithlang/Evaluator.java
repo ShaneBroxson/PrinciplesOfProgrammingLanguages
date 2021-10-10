@@ -117,4 +117,53 @@ public class Evaluator implements Visitor<Value> {
         return new DynamicError("Error");
     }
 
+    @Override
+    public Value visit(Len e) {
+        List<Exp> operands = e.all();
+        //System.out.println(operands.size());
+        //NumVal length = ((NumVal) operands.size());
+        double result = operands.size();
+        return new NumVal(result);
+    }
+
+    @Override
+    public Value visit(Unique e) {
+        List<Exp> operands = e.all();
+        ArrayList<Integer> intConversion = new ArrayList<Integer>();
+        for(int i = 0; i < operands.size(); i++){
+            NumVal rVal = (NumVal) operands.get(i).accept(this);
+            int lValPart = Integer.parseInt(String.valueOf(rVal));
+            if(!intConversion.contains(lValPart)){
+
+                intConversion.add(lValPart);
+
+            }
+        }
+        String s = "";
+        String fin = "";
+        for(int y = 0; y < intConversion.size(); y++){
+            fin = s.concat(String.valueOf(intConversion.get(y)));
+        }
+
+    Value[] elems  = new Value[intConversion.size()];
+        for(int i=0; i<intConversion.size(); i++)
+            elems[i] = (Value) operands.get(i).accept(this);
+        Value result = new Value() {
+            @Override
+            public String toString() {
+                return null;
+            }
+        };
+        //result = elems;
+        for(int i=0; i<operands.size(); i++)
+            result = elems[i];
+       // NumVal stringarr =  (NumVal) fin ;
+
+        //System.out.println(operands.size());
+        //NumVal length = ((NumVal) operands.size());
+       // double result = operands.size();
+
+        return result;
+    }
+
 }

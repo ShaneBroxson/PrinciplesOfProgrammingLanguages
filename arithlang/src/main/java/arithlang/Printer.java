@@ -61,5 +61,21 @@ public class Printer {
             }
             return result + ")";
         }
+
+        public String visit(Len e) {
+            String result = "(len";
+            for(AST.Exp exp : e.all()) {
+                result += " " + exp.accept(this);
+            }
+            return result + ")";
+        }
+
+        public String visit(Unique e) {
+            String result = "(unique";
+            for(AST.Exp exp : e.all()) {
+                result += " " + exp.accept(this);
+            }
+            return result + ")";
+        }
     }
 }
