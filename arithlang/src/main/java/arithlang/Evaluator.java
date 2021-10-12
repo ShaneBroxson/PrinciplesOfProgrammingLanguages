@@ -4,7 +4,6 @@ import static arithlang.AST.*;
 import static arithlang.Value.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -129,34 +128,18 @@ public class Evaluator implements Visitor<Value> {
     @Override
     public Value visit(Unique e) {
         List<Exp> operands = e.all();
-        ArrayList<Integer> intConversion = new ArrayList<Integer>();
+
+        ArrayList<Value> intConversion = new ArrayList<Value>();
         for(int i = 0; i < operands.size(); i++){
             NumVal rVal = (NumVal) operands.get(i).accept(this);
-            int lValPart = Integer.parseInt(String.valueOf(rVal));
+            double lValPart = Integer.parseInt(String.valueOf(rVal));
             if(!intConversion.contains(lValPart)){
 
-                intConversion.add(lValPart);
-
+        intConversion.add(rVal);
             }
         }
-//        String s = "";
-//        String fin = "";
-//        for(int y = 0; y < intConversion.size(); y++){
-//            fin = s.concat(String.valueOf(intConversion.get(y)));
-//        }
 
-    Value[] elems  = new Value[intConversion.size()];
-        for(int i=0; i<intConversion.size(); i++)
-            elems[i] = (Value) operands.get(i).accept(this);
-        Value result = new Value() {
-            @Override
-            public String toString() {
-                return null;
-            }
-        };
-        for(int i=0; i<operands.size(); i++)
-            result = elems[i];
-        return result;
+        return intConversion.get(0);
     }
 
 }

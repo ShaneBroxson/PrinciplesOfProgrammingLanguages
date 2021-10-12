@@ -1,6 +1,7 @@
 package arithlang;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -126,9 +127,14 @@ public interface AST {
     }
 
     public static class Unique extends CompoundArithExp {
+        List<Exp> _args;
         public Unique(List<Exp> args) {
             super(args);
+            _args = args;
         }
+public List<Exp> args(){
+            return _args;
+}
         public Object accept(Visitor visitor) {
             return visitor.visit(this);
         }
