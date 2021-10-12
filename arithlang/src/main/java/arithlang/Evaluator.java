@@ -139,11 +139,11 @@ public class Evaluator implements Visitor<Value> {
 
             }
         }
-        String s = "";
-        String fin = "";
-        for(int y = 0; y < intConversion.size(); y++){
-            fin = s.concat(String.valueOf(intConversion.get(y)));
-        }
+//        String s = "";
+//        String fin = "";
+//        for(int y = 0; y < intConversion.size(); y++){
+//            fin = s.concat(String.valueOf(intConversion.get(y)));
+//        }
 
     Value[] elems  = new Value[intConversion.size()];
         for(int i=0; i<intConversion.size(); i++)
@@ -154,15 +154,8 @@ public class Evaluator implements Visitor<Value> {
                 return null;
             }
         };
-        //result = elems;
         for(int i=0; i<operands.size(); i++)
             result = elems[i];
-       // NumVal stringarr =  (NumVal) fin ;
-
-        //System.out.println(operands.size());
-        //NumVal length = ((NumVal) operands.size());
-       // double result = operands.size();
-
         return result;
     }
 
